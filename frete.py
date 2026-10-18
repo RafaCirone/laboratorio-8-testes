@@ -3,11 +3,26 @@
 FRETE_PADRAO = 15.00
 LIMITE_FRETE_GRATIS = 250.00
 
+REGIOES_COM_TAXA_ADICIONAL = {"Norte", "Nordeste"}
+TAXA_ADICIONAL_REGIONAL = 10.00
+LIMITE_FRETE_GRATIS_REGIONAL = 300.00
 
-def calcular_frete(valor_carrinho: float) -> float:
-    """Retorna o frete: R$ 15,00 abaixo de R$ 250,00; grátis a partir disso."""
+
+def calcular_frete(valor_carrinho: float, regiao: str | None = None) -> float:
+    """Calcula o frete do carrinho.
+
+    - Regra geral: R$ 15,00 abaixo de R$ 250,00; grátis a partir disso.
+    - Norte/Nordeste: R$ 15,00 + R$ 10,00, exceto se o subtotal for
+      superior a R$ 300,00, quando o frete é grátis.
+    """
     if valor_carrinho < 0:
         raise ValueError("O valor do carrinho não pode ser negativo.")
+
+    if regiao in REGIOES_COM_TAXA_ADICIONAL:
+        if valor_carrinho > LIMITE_FRETE_GRATIS_REGIONAL:
+            return 0.00
+        return FRETE_PADRAO + TAXA_ADICIONAL_REGIONAL
+
     if valor_carrinho >= LIMITE_FRETE_GRATIS:
         return 0.00
     return FRETE_PADRAO
