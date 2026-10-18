@@ -24,9 +24,3 @@ Código de produção: `frete.py` (cálculo e `CalculadoraFrete`) e `servicos.py
 pip install -r requirements.txt
 pytest -v
 ```
-
-### No PyCharm (Exercício 7.3)
-1. Abra a pasta do projeto e configure o interpretador Python.
-2. Settings → Tools → Python Integrated Tools → Default test runner: **pytest**.
-3. Clique com o botão direito na pasta `tests` → **Run 'pytest in tests'**.
-4. Capture a tela da janela **Run** mostrando os testes passando.
